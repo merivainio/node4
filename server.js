@@ -1,12 +1,12 @@
 const express = require('express');
 const app = express();
 const port = 3000;
-const morgan= require('morgan');
-const pois = require('/home/meri/node4/rest-api-example/routes/pois')
+const pois = require('./routes/pois')
+const baseURL = '/api/v1';
 
-app.use(morgan('dev'));
+app.use(express.json());
 
-app.use('/pois', pois)
+app.use(baseURL + '/pois', pois)
 
 app.listen(3000, () => 
 console.log(`Server listening on ${port}!`))

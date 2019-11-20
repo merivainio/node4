@@ -23,6 +23,7 @@ const uuid = require('uuid/v1');
 
 const storage = {
    '50e31360-0521-11ea-acba-e389d9b4cbaa': {
+        id: '50e31360-0521-11ea-acba-e389d9b4cbaa',
         name: 'Haaga-Helia ammattikorkeakoulu',
         description: 'Haaga-Helia ammattikorkeakoulu kouluttaa liike-elämän ja palveluelinkeinojen asiantuntijoita sekä tutkii ja kehittää näihin aloihin liittyvää osaamista ja toimintaa. Koulutusalamme ovat liiketalous, tietotekniikka, hotelli-, ravintola- ja matkailuala, johdon assistenttityö, toimittajakoulutus, liikunta-ala sekä ammatillinen opettajankoulutus. Meille on tärkeää, että opiskelijoillamme on heti valmistuttuaan vahvat siteet työelämään. Panostamme toiminnassamme yrittäjyyteen, yhteistyöhön, innovatiivisuuteen ja kansainvälisyyteen.',
         city: "Helsinki",
