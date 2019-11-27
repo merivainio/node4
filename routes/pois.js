@@ -1,8 +1,27 @@
 const express = require('express');
-const app = express();
 const router = express.Router();
-const pois = require('../db')
+const pois = require('../db');
+const tokens = require('../tokens');
 
+const validateToken = (req, res, next) => {
+    const auth  = req.header('Authorization');
+    console.log(auth);
+    
+    if (!auth) {
+        res.status(401).send({ error: 'authorization required' });
+        return;
+    }
+
+    const token = auth.split(' ')[1];
+    console.log(token);
+
+    if(!tokens.verify(token)) {
+        res.status(401).send({ error: 'invalid authorization' });
+        return;
+    }
+
+    next();
+}
 
 const validatePoi = (req, res, next) => {
     const poi = req.body;
@@ -30,14 +49,14 @@ router.get('/:id', ( req, res) => {
 });
 
 
-router.post('/', validatePoi, ( req, res) => {
+router.post('/', validatePoi, validateToken, ( req, res) => {
     const poi = req.body;
     const newPoi = pois.createPoi(poi);
     res.status(201).send(newPoi);
 
 });
 
-router.put('/:id', validatePoi, ( req, res) => {
+router.put('/:id', validatePoi, validateToken, ( req, res) => {
     const poi = req.body;
     const { id } = req.params;
     
@@ -51,7 +70,7 @@ router.put('/:id', validatePoi, ( req, res) => {
 
 });
 
-router.delete('/:id', ( req, res) => {
+router.delete('/:id', validateToken, ( req, res) => {
     const { id } = req.params;
     if(pois.deletePoi(id)) {
         res.status(204).send();
